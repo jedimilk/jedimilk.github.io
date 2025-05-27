@@ -1,1 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Repo Files</title>
+</head>
+<body>
+  <h1>Files in Repository</h1>
+  <ul id="file-list"></ul>
+
+  <script>
+    fetch('https://api.github.com/repos/jedimilk/jedimilk.github.io/contents/')
+      .then(response => response.json())
+      .then(data => {
+        const fileList = document.getElementById('file-list');
+        data.forEach(item => {
+          if (item.type === "dir") {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = item.path + "/";
+            a.textContent = item.name;
+            li.appendChild(a);
+            fileList.appendChild(li);
+          }
+        });
+      });
+  </script>
+</body>
+</html>
 
